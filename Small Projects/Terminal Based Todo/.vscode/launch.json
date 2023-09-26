@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Todo",
+            "request": "launch",
+            "mainClass": "todo.src.main.java.com.example.todo.Todo",
+            "projectName": "Terminal Based Todo_309cd774"
+        },
+        {
+            "type": "java",
+            "name": "Todo(1)",
+            "request": "launch",
+            "mainClass": "com.example.todo.Todo",
+            "projectName": "todo"
+        }
+    ]
+}

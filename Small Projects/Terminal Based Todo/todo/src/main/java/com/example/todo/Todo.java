@@ -2,11 +2,13 @@ package com.example.todo;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
 import java.io.File;
@@ -22,8 +24,12 @@ public class Todo {
     private static int taskId = 1;
 
     public static void main(String[] args) {
-
-        data.add(new String[] { "ID", "Task", "Status" });
+        // check the file is exist at the file location
+        if (databasePath.exists()) {
+            readData();
+        } else {
+            data.add(new String[] { "ID", "Task", "Status" });
+        }
 
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -55,6 +61,28 @@ public class Todo {
                     System.out.println("Invalid choice. Please try again.");
             }
         } while (choice != 4);
+    }
+
+    private static void readData() {
+        try {
+
+            // Create an object of filereader
+            // class with CSV file as a parameter.
+            FileReader filereader = new FileReader(databasePath);
+
+            // create csvReader object passing
+            // file reader as a parameter
+            CSVReader csvReader = new CSVReader(filereader);
+            String[] nextRecord;
+
+            // we are going to read data line by line
+            while ((nextRecord = csvReader.readNext()) != null) {
+                data.add(nextRecord);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static void addTask(Scanner scanner) {
@@ -95,24 +123,30 @@ public class Todo {
     private static void removeTask(Scanner scanner) {
         System.out.print("Enter task ID: ");
         int id = scanner.nextInt();
+        if (id >= 1) {
+            for (int i = 1; i < data.size(); i++) {
 
-        for (int i = 1; i < data.size(); i++) {
+                String[] temp = data.get(i);
 
-            String[] temp = data.get(i);
+                if (Integer.parseInt(temp[0]) == id) {
+                    data.remove(i);
+                    System.out.println("---------------------**---------------------");
+                    System.out.println("Task removed.");
+                    System.out.println("---------------------**---------------------");
 
-            if (Integer.parseInt(temp[0]) == id) {
-                data.remove(i);
-                System.out.println("---------------------**---------------------");
-                System.out.println("Task removed.");
-                System.out.println("---------------------**---------------------");
+                } else {
 
-            } else {
+                    System.out.println("---------------------**---------------------");
+                    System.out.println("No task found with that ID.");
+                    System.out.println("---------------------**---------------------");
+                }
 
-                System.out.println("---------------------**---------------------");
-                System.out.println("No task found with that ID.");
-                System.out.println("---------------------**---------------------");
             }
+        } else {
 
+            System.out.println("---------------------**---------------------");
+            System.out.println("No task found with that ID.");
+            System.out.println("---------------------**---------------------");
         }
 
     }
