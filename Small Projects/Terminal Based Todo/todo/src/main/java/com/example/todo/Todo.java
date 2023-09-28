@@ -32,30 +32,121 @@ public class Todo {
         do {
 
             System.out.println("1. Add task");
-            System.out.println("2. Remove task");
-            System.out.println("3. List tasks");
-            System.out.println("4. Exit");
+            System.out.println("2. Edit task");
+            System.out.println("3. Remove task");
+            System.out.println("4. List tasks");
+            System.out.println("5. Exit");
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
             switch (choice) {
                 case 1:
                     addTask(scanner);
-
                     break;
                 case 2:
-                    removeTask(scanner);
+                    editTask(scanner);
                     break;
                 case 3:
-                    listTasks();
+                    removeTask(scanner);
                     break;
                 case 4:
+                    listTasks();
+                    break;
+                case 5:
                     System.out.println("Exiting...");
                     addDataToCSV();
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        } while (choice != 4);
+        } while (choice != 5);
+    }
+
+    private static void editTask(Scanner scanner) {
+        listTasks();
+
+        System.out.print("Enter task ID: ");
+        int id = scanner.nextInt();
+        System.out.println("---------------------**---------------------");
+        System.out.println("1. Edit Task Name: ");
+        System.out.println("2. Edit Task Status: ");
+        System.out.println("---------------------**---------------------");
+
+        System.out.print("Enter your choice: ");
+
+        int selectEditType = scanner.nextInt();
+
+        if (id >= 1) {
+            for (int i = 1; i < data.size(); i++) {
+
+                String[] temp = data.get(i);
+
+                if (Integer.parseInt(temp[0]) == id) {
+                    switch (selectEditType) {
+                        case 1:
+                            editTaskName(scanner, temp);
+                            break;
+                        case 2:
+                            editTaskStatus(scanner, temp, i);
+                            break;
+                        default:
+                            System.out.println("Invalid choice. Please try again.");
+
+                    }
+
+                    System.out.println("---------------------**---------------------");
+                    System.out.println("Data Updated.");
+                    System.out.println("---------------------**---------------------");
+                    break;
+
+                } else {
+
+                    System.out.println("---------------------**---------------------");
+                    System.out.println("No task found with that ID.");
+                    System.out.println("---------------------**---------------------");
+                }
+
+            }
+        } else {
+
+            System.out.println("---------------------**---------------------");
+            System.out.println("No task found with that ID.");
+            System.out.println("---------------------**---------------------");
+        }
+
+    }
+
+    private static void editTaskStatus(Scanner scanner, String[] temp, int i) {
+        System.out.println("---------------------**---------------------");
+        System.out.println("1. Close: ");
+        System.out.println("2. Open: ");
+        System.out.println("---------------------**---------------------");
+        System.out.print("Enter your choice: ");
+
+        int selectEditStatus = scanner.nextInt();
+        switch (selectEditStatus) {
+            case 1:
+                temp[2] = "Close";
+                data.set(i, temp);
+                break;
+            case 2:
+                temp[2] = "Open";
+                data.set(i, temp);
+                break;
+            default:
+
+                System.out.println("Invalid choice. Please try again.");
+
+        }
+    }
+
+    private static void editTaskName(Scanner scanner, String[] temp) {
+
+        System.out.print("Enter your Task: ");
+        scanner.nextLine();
+        String editedTask = scanner.nextLine();
+
+        temp[1] = editedTask;
+
     }
 
     private static void readData() {
@@ -116,6 +207,8 @@ public class Todo {
     }
 
     private static void removeTask(Scanner scanner) {
+        listTasks();
+
         System.out.print("Enter task ID: ");
         int id = scanner.nextInt();
         if (id >= 1) {
