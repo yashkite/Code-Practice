@@ -41,12 +41,15 @@ public class Todo {
             switch (choice) {
                 case 1:
                     addTask(scanner);
+                    addDataToCSV();
                     break;
                 case 2:
                     editTask(scanner);
+                    addDataToCSV();
                     break;
                 case 3:
                     removeTask(scanner);
+                    addDataToCSV();
                     break;
                 case 4:
                     listTasks();
@@ -96,6 +99,7 @@ public class Todo {
                     System.out.println("---------------------**---------------------");
                     System.out.println("Data Updated.");
                     System.out.println("---------------------**---------------------");
+
                     break;
 
                 } else {
