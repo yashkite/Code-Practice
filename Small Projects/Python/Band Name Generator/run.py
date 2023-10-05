@@ -1,6 +1,4 @@
-city = ""
-name = ""
 city = input("enter the city name: ")
-name = input("enter the name: ") 
+pet_name = input("enter the name: ") 
 
-print("your band name is " + city + " "+ name)
+print("your band name is " + city + " "+ pet_name)
