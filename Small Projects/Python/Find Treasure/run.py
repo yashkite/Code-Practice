@@ -13,7 +13,6 @@ match cross_road:
                         print("You located the treasure :-)")
                     case "blue":
                         print("Game Over")
-
                     case _:
                         print("Input Invalid")                        
             case "swim":
