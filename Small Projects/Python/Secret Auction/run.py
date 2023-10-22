@@ -1,7 +1,9 @@
+import os
 more_bids = True
 bids = {}
 while more_bids:
-    choice = input("Is there more bids, y or n :- ")
+    os.system("cls")
+    choice = input("Want to bid, y or n :- ")
     if choice == "y":
         name = input("Enter the biders name:- ")
         bid = int(input("Enter the bid amount:- "))
