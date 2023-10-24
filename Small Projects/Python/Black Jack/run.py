@@ -75,6 +75,7 @@ Enter Choice Number: '''))
             match choice:
                 case 1:
                     user.append(pick_card())
+
                 case 2:
                     amount = pot/2
                     if amount > money:
@@ -84,16 +85,47 @@ Enter Choice Number: '''))
                         money -= amount
                         pot = pot * 2
                         user.append(pick_card())
-                case 3:
+                        if card_sum(user) > 21:
+                            print("Game Over")
+                            if input("Play Again? : y or n:-") == "y":
+                                break
+                            else:
+                                exit = True                        
                     skip_computer()
                 case _:
                     print(f"Wrong Input: {choice}")
                     continue
-            if card_sum(user)==21:
-                skip_computer()
+            skip_computer()
 
-            elif card_sum(user)>21:
-            
+            if card_sum(user) > 21:
+                print("Game Over")
+                if input("Play Again? : y or n:-") == "y":
+                    break
+                else:
+                    exit = True   
+
+            elif card_sum(computer) == card_sum(user):
+                print(f"Match Draw: computer-{computer} and user-{user}")
+                money += pot/2
+                if input("Play Again? : y or n:-") == "y":
+                    break
+                else:
+                    exit = True
+
+            elif card_sum(computer) > 21:
+                print(f"User Win : ${pot}")
+                if input("Play Again? : y or n:-") == "y":
+                    break
+                else:
+                    exit = True
+            elif card_sum(user) > card_sum:
+                print("Game Over")
+                if input("Play Again? : y or n:-") == "y":
+                    break
+                else:
+                    exit = True   
+
+        
 
     
 
