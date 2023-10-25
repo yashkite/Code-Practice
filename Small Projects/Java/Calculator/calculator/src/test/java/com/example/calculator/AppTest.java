@@ -10,10 +10,6 @@ import org.junit.Test;
  */
 public class AppTest 
 {
-    // Execute same as junit.Assert.assertEquals()
-    private boolean compareResult(float result, float expected) {
-        return result == expected;
-    }
     /**
      * Rigorous Test :-)
      */
