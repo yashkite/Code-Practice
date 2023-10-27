@@ -114,6 +114,17 @@ Enter Choice Number: '''))
                                 game_continue = False
                             else:
                                 exit = False
+                        elif card_sum(user) == 21:
+                            skip_computer()
+                            if  21 >= card_sum(user) > card_sum(computer):
+                                money += pot
+                                print(f"User Wins Blackjack: ${pot}")
+                                print(f"computer: {computer} = sum {card_sum(computer)}")
+                                print(f"user : {user} = sum {card_sum(user)} ") 
+                                if input("Play Again? : y or n:- ") == "y":
+                                    game_continue = False
+                                else:
+                                    exit = False
                 case 3:                
                     skip_computer()
                 case _:
