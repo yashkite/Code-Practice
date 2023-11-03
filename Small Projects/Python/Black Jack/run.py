@@ -54,9 +54,13 @@ while money> 0 or not exit:
     user.append(pick_card())
     computer.append(pick_card())
     user.append(pick_card())
-
+    if card_sum(computer) == 22:
+        computer.remove(11)
+        computer.append(1)
+    if card_sum(user) == 22:
+        user.remove(11)
+        user.append(1)
     print_stats(computer,user)
-
     if (card_sum(computer) == 21 or card_sum(user) == 21) and card_sum(computer) != card_sum(user):
         if card_sum(computer) == 21:
             print(f"Computer Wins Blackjack: ${pot}")
@@ -180,7 +184,3 @@ Enter Choice Number: '''))
                 else:
                     exit = False
     os.system("cls")
-        
-
-    
-
