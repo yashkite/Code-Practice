@@ -1,4 +1,3 @@
-
 MENU = {
     "espresso": {
         "ingredients": {
@@ -22,7 +21,7 @@ MENU = {
             "coffee": 24,
         },
         "cost": 3.0,
-    }
+    },
 }
 
 resources = {
@@ -31,75 +30,80 @@ resources = {
     "coffee": 100,
 }
 
-def is_ingradiants_available(type_coffee):
-    ingrediants = type_coffee["ingredients"]
+profit = 0
+
+
+def is_ingredients_available(type_coffee):
+    ingredients = type_coffee["ingredients"]
     is_available = True
-    for ingrediant in ingrediants:
-        if resources[ingrediant] < ingrediants[ingrediant]:
-            print(f"{ingrediant} is not in enough quantity to make drink")
+    for ingredient in ingredients:
+        if resources[ingredient] < ingredients[ingredient]:
+            print(
+                f"Sorry, {ingredient} is not in sufficient quantity to make the drink."
+            )
             is_available = False
     return is_available
 
-     
-    
+
 def process_coins():
-    print("Please insert coins.")
-    total = int(input("how many quarters?: ")) * 0.25
-    total += int(input("how many dimes?: ")) * 0.1
-    total += int(input("how many nickles?: ")) * 0.05
-    total += int(input("how many pennies?: ")) * 0.01
+    print("\nPlease insert coins.")
+    total = int(input("How many quarters?: ")) * 0.25
+    total += int(input("How many dimes?: ")) * 0.1
+    total += int(input("How many nickels?: ")) * 0.05
+    total += int(input("How many pennies?: ")) * 0.01
     return total
 
+
 def do_transaction(type_coffee, coins):
-    
-    ingrediants = type_coffee["ingredients"]
-    for ingrediant in ingrediants:
-        resources[ingrediant] -= ingrediants[ingrediant]
-    change = round(coins - type_coffee['cost'],2)
-    print(f"here is your Coffee and your change is ${change}")
+    ingredients = type_coffee["ingredients"]
+    for ingredient in ingredients:
+        resources[ingredient] -= ingredients[ingredient]
+    change = round(coins - type_coffee["cost"], 2)
+    print(
+        f"Here is your {type_coffee} and your change is ${change}.\nEnjoy your coffee!"
+    )
 
 
 def make_coffee(type_coffee):
-    
-    if is_ingradiants_available(type_coffee):
+    print(f"\nMaking {type_coffee}...\n")
+    if is_ingredients_available(type_coffee):
         coins = process_coins()
-        if coins < drink["cost"]:
-            print(f"You have ${coins} and Coffee costs ${type_coffee['cost']}")
+        if coins < type_coffee["cost"]:
+            print(
+                f"Sorry, you have ${coins} but {type_coffee} costs ${type_coffee['cost']}. Money refunded."
+            )
         else:
             do_transaction(type_coffee, coins)
             return True
     else:
-        print("Some ingrediants are missing")
-
-def report(resources):
-    for ingrediant in resources:
-        print(f"{ingrediant} = {resources[ingrediant]}")
-    print(f"Profit = ${profit}")
+        print("Some ingredients are missing.")
 
 
-drink = ""
-profit = 0
+def display_report(resources):
+    print("\nCurrent Resources:")
+    for ingredient, quantity in resources.items():
+        print(f"{ingredient.capitalize()}: {quantity}")
+    print(f"Total Profit: ${profit}")
+
+
 choice = 0
 while choice != 5:
-    print("1. Espresso - $1.5 ")
-    print("2. Latte - $2.5 ")
-    print("3. Cappuccino - $3.0 ")
+    print("\n===== Coffee Machine Menu =====")
+    print("1. Espresso - $1.5")
+    print("2. Latte - $2.5")
+    print("3. Cappuccino - $3.0")
     print("4. Report")
     print("5. Exit")
-    choice = int(input("Enter Your Choice in Numbers: "))
-    match choice:
-        case 1:
-            drink = MENU["espresso"]
-        case 2:
-            drink = MENU["latte"]
-        case 3:
-            drink = MENU["cappuccino"]
-        case 4:
-            report(resources)
-            continue
-        case 5:
-            break
-    
-    if make_coffee(drink):
-        profit += drink['cost']
+    choice = int(input("Enter your choice (1-5): "))
 
+    if choice == 4:
+        display_report(resources)
+        continue
+
+    if 1 <= choice <= 3:
+        drink_type = list(MENU.keys())[choice - 1]
+        drink = MENU[drink_type]
+        if make_coffee(drink):
+            profit += drink["cost"]
+
+print("\nThank you for using the Coffee Machine. Have a great day!")
