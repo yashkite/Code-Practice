@@ -29,4 +29,4 @@ while quit:
     answer = calculate(num1, num2)
 
     print(f"{num1} {operations_sysmbol} {num2} = {answer}")
-    quit = int(input("Calculate again?, yes=1/no=0:"))
+    quit = int(input("Calculate again?, yes=1/no=0: "))
