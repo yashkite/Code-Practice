@@ -57,7 +57,7 @@ while money > 0 and not exit_game:
     pot = int(input("Enter the Starting Bet: "))
 
     if pot > money:
-        print("You don't have enough money in your wallet.")
+        print("You don't have enough money in your wallet")
         continue
 
     money -= pot
