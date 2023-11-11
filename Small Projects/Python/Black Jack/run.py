@@ -38,7 +38,7 @@ def display_winner():
 
 
 def play_again():
-    return input("Play Again? (y/n): ").lower() == "y"
+    return input("Play Again? (y/n):").lower() == "y"
 
 
 exit_game = False
