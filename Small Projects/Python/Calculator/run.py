@@ -1,32 +1,32 @@
-def add(num1, num2):
-    return num1 + num2
+while True:
+    # Display menu
+    print("Options:")
+    print("Enter 'add' for addition")
+    print("Enter 'subtract' for subtraction")
+    print("Enter 'multiply' for multiplication")
+    print("Enter 'divide' for division")
+    print("Enter 'quit' to end the program")
 
+    user_input = input(": ")
 
-def substract(num1, num2):
-    return num1 - num2
+    if user_input == "quit":
+        break  # Exit the loop and end the program
 
+    if user_input in ("add", "subtract", "multiply", "divide"):
+        num1 = float(input("Enter first number: "))
+        num2 = float(input("Enter second number: "))
 
-def multiply(num1, num2):
-    return num1 * num2
-
-
-def divide(num1, num2):
-    return num1 / num2
-
-
-operations = {"+": add, "-": substract, "*": multiply, "/": divide}
-
-while quit:
-    num1 = int(input("Enter the first number: "))
-    num2 = int(input("Enter the second number: "))
-
-    for symbol in operations:
-        print(symbol)
-    operations_sysmbol = input("Enter the operation: ")
-
-    calculate = operations[operations_sysmbol]
-
-    answer = calculate(num1, num2)
-
-    print(f"{num1} {operations_sysmbol} {num2} = {answer}")
-    quit = int(input("Calculate again?, yes=1/no=0: "))
+        if user_input == "add":
+            result = num1 + num2
+        elif user_input == "subtract":
+            result = num1 - num2
+        elif user_input == "multiply":
+            result = num1 * num2
+        elif user_input == "divide":
+            if num2 == 0:
+                print("Error: Division by zero")
+                continue  # Skip the rest of the loop and continue from the start
+            result = num1 / num2
+        print("Result: " + str(result))
+    else:
+        print("Invalid input. Please try again.")
