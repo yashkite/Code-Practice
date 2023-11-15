@@ -11,7 +11,11 @@ def pick_card():
 
 
 def print_stats(computer, user):
-    print(f"Computer: [{computer[0]}, *] ")
+    if computer:
+        print(f"Computer: [{computer[0]}, *] ")
+    else:
+        print("Computer: []")
+
     print(f"User: {user} = Sum {card_sum(user)} ")
     print(f"Your Wallet Fund: ${money}")
 
@@ -51,7 +55,7 @@ while money > 0 and not exit_game:
     list_card = list1 + list2 + list3 + list4
 
     user = []
-    computer = []
+    computer = [pick_card()]  # Initialize computer with one card
 
     print(f"Your Wallet Fund: ${money}")
     pot = int(input("Enter the Starting Bet: "))
