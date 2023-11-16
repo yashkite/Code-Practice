@@ -12,7 +12,7 @@ def pick_card():
 
 def print_stats(computer, user):
     if computer:
-        print(f"Computer: [{computer[0]}, *] ")
+        print(f"Computer: {computer} = Sum {card_sum(computer)}")
     else:
         print("Computer: []")
 
