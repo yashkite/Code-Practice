@@ -1,18 +1,37 @@
 import random
 import string
 
-ascii_letters = list(string.ascii_letters)
-digits = list(string.digits)
-punctuations = list(string.punctuation)
 
-mix = [ascii_letters, digits, punctuations]
+def generate_password(length, char_types):
+    characters = []
+
+    if "alphanumeric" in char_types:
+        characters.extend(list(string.ascii_letters + string.digits))
+
+    if "digit" in char_types:
+        characters.extend(list(string.digits))
+
+    if "punctuation" in char_types:
+        characters.extend(list(string.punctuation))
+
+    if not characters:
+        print("Please select at least one character type.")
+        return None
+
+    password = "".join(random.choice(characters) for _ in range(length))
+    return password
+
 
 length = int(input("Enter the Password Length in numbers: "))
 
-password = ""
-i = []
-for x in range(0,length):
-    i = mix[random.randint(0,len(mix)-1)]
-    password += i[random.randint(0,len(i)-1)]
+selected_char_types = []
+while not selected_char_types:
+    selected_char_types = input(
+        "Select character types (alphanumeric, digit, punctuation) separated by commas: "
+    ).split(",")
+    selected_char_types = [s.strip().lower() for s in selected_char_types]
 
-print(f"your password is: {password}")
+password = generate_password(length, selected_char_types)
+
+if password:
+    print(f"Your password is: {password}")
