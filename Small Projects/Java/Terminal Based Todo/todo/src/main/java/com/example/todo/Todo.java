@@ -226,6 +226,14 @@ public class Todo {
                     System.out.println("Task removed.");
                     System.out.println("---------------------**---------------------");
 
+                    // Reorder the IDs after deleting the task
+                    for (int j = i; j < data.size(); j++) {
+                        String[] updatedTask = data.get(j);
+                        updatedTask[0] = String.valueOf(Integer.parseInt(updatedTask[0]) - 1);
+                        data.set(j, updatedTask);
+                    }
+                    taskId--; // Update the taskId
+
                 } else {
 
                     System.out.println("---------------------**---------------------");
@@ -240,7 +248,6 @@ public class Todo {
             System.out.println("No task found with that ID.");
             System.out.println("---------------------**---------------------");
         }
-
     }
 
     private static void listTasks() {
