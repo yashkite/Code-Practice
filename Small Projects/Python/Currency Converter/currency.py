@@ -15,7 +15,7 @@ import forex_python.converter as CurrencyRates
 class Main:
     
     @classmethod
-    def convert(inCurr, outCurr, values:float = None): # type: ignore
+    def convert(cls, inCurr, outCurr, values:float = None): # type: ignore
         """
     Convert currency from one unit to another.
 
