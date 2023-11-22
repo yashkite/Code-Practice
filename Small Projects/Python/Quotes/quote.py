@@ -1,6 +1,19 @@
 import requests
 import logging
 
+"""
+    Usage:
+        1. Generate a random quote
+            a = Quote().random_quote()
+        2. Generate quote of the day
+            a = Quote().quote_of_day()
+        3. Generate n number of quotes (upto 50)
+            a = Quote().random_quotes(n) 
+            (n can be any number)
+        print(a)
+"""
+
+
 class Quote:
     """
     A class to fetch quotes, daily quotes and random quotes from zenquotes API
@@ -80,3 +93,7 @@ class Quote:
             return quotes
         except requests.exceptions.RequestException as e:
             logging.error(f"Error: {e}")
+
+if __name__ == "__main__":
+    a = Quote().random_quote()
+    print(a)
