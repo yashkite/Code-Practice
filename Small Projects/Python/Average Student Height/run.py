@@ -1,10 +1,6 @@
-student_hights = input("Enter Students hights with \",\": ").split(", ")
+student_heights = input("Enter Students heights with \",\": ").strip().split(", ")
+student_heights =  [float(i) for i in student_heights]
 
-total_hight = 0
-total_students = 0
-for student in student_hights:
-    total_hight += float(student)
-    total_students += 1
-Hight_Average = round(total_hight/total_students)
-print(f"Total Student Hights Average is: {Hight_Average}" )
+heights_Average = round(sum(student_heights)/len(student_heights), 2)
 
+print(f"Total Student heights Average is: {heights_Average} cm")
