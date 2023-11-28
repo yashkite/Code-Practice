@@ -1,105 +1,88 @@
+class Drink:
+    def __init__(self, name, ingredients, cost):
+        self.name = name
+        self.ingredients = ingredients
+        self.cost = cost
 
-MENU = {
-    "espresso": {
-        "ingredients": {
-            "water": 50,
-            "coffee": 18,
-        },
-        "cost": 1.5,
-    },
-    "latte": {
-        "ingredients": {
-            "water": 200,
-            "milk": 150,
-            "coffee": 24,
-        },
-        "cost": 2.5,
-    },
-    "cappuccino": {
-        "ingredients": {
-            "water": 250,
-            "milk": 100,
-            "coffee": 24,
-        },
-        "cost": 3.0,
-    }
-}
+class CoinProcessor:
+    @staticmethod
+    def process_coins():
+        print("Please insert coins.")
+        total = int(input("how many quarters?: ")) * 0.25
+        total += int(input("how many dimes?: ")) * 0.1
+        total += int(input("how many nickles?: ")) * 0.05
+        total += int(input("how many pennies?: ")) * 0.01
+        return total
 
-resources = {
-    "water": 300,
-    "milk": 200,
-    "coffee": 100,
-}
+    @staticmethod
+    def do_transaction(drink_cost, coins):
+        change = round(coins - drink_cost, 2)
+        print(f"Here is your Coffee and your change is ${change}")
+        return change
 
-def is_ingradiants_available(type_coffee):
-    ingrediants = type_coffee["ingredients"]
-    is_available = True
-    for ingrediant in ingrediants:
-        if resources[ingrediant] < ingrediants[ingrediant]:
-            print(f"{ingrediant} is not in enough quantity to make drink")
-            is_available = False
-    return is_available
+class CoffeeMachine:
+    def __init__(self):
+        self.resources = {
+            "water": 300,
+            "milk": 200,
+            "coffee": 100,
+        }
+        self.drinks = {
+            "espresso": Drink("espresso", {"water": 50, "coffee": 18}, 1.5),
+            "latte": Drink("latte", {"water": 200, "milk": 150, "coffee": 24}, 2.5),
+            "cappuccino": Drink("cappuccino", {"water": 250, "milk": 100, "coffee": 24}, 3.0)
+        }
+        self.profit = 0
+        self.coin_processor = CoinProcessor()
 
-     
-    
-def process_coins():
-    print("Please insert coins.")
-    total = int(input("how many quarters?: ")) * 0.25
-    total += int(input("how many dimes?: ")) * 0.1
-    total += int(input("how many nickles?: ")) * 0.05
-    total += int(input("how many pennies?: ")) * 0.01
-    return total
+    def is_ingredients_available(self, drink):
+        for ingredient, amount in drink.ingredients.items():
+            if self.resources[ingredient] < amount:
+                print(f"{ingredient} is not in enough quantity to make {drink.name}")
+                return False
+        return True
 
-def do_transaction(type_coffee, coins):
-    
-    ingrediants = type_coffee["ingredients"]
-    for ingrediant in ingrediants:
-        resources[ingrediant] -= ingrediants[ingrediant]
-    change = round(coins - type_coffee['cost'],2)
-    print(f"here is your Coffee and your change is ${change}")
-
-
-def make_coffee(type_coffee):
-    
-    if is_ingradiants_available(type_coffee):
-        coins = process_coins()
-        if coins < drink["cost"]:
-            print(f"You have ${coins} and Coffee costs ${type_coffee['cost']}")
+    def make_coffee(self, drink):
+        if self.is_ingredients_available(drink):
+            coins = self.coin_processor.process_coins()
+            if coins < drink.cost:
+                print(f"You have ${coins}, but the drink costs ${drink.cost}.")
+                return False
+            else:
+                for ingredient, amount in drink.ingredients.items():
+                    self.resources[ingredient] -= amount
+                self.coin_processor.do_transaction(drink.cost, coins)
+                self.profit += drink.cost
+                return True
         else:
-            do_transaction(type_coffee, coins)
-            return True
-    else:
-        print("Some ingrediants are missing")
+            print("Some ingredients are missing.")
+            return False
 
-def report(resources):
-    for ingrediant in resources:
-        print(f"{ingrediant} = {resources[ingrediant]}")
-    print(f"Profit = ${profit}")
+    def report(self):
+        for ingredient, amount in self.resources.items():
+            print(f"{ingredient}: {amount}ml/g")
+        print(f"Profit: ${self.profit}")
 
+    def run(self):
+        while True:
+            print("1. Espresso - $1.5 ")
+            print("2. Latte - $2.5 ")
+            print("3. Cappuccino - $3.0 ")
+            print("4. Report")
+            print("5. Exit")
+            choice = int(input("Enter Your Choice in Numbers: "))
+            match choice:
+                case 1:
+                    self.make_coffee(self.drinks["espresso"])
+                case 2:
+                    self.make_coffee(self.drinks["latte"])
+                case 3:
+                    self.make_coffee(self.drinks["cappuccino"])
+                case 4:
+                    self.report()
+                case 5:
+                    break
 
-drink = ""
-profit = 0
-choice = 0
-while choice != 5:
-    print("1. Espresso - $1.5 ")
-    print("2. Latte - $2.5 ")
-    print("3. Cappuccino - $3.0 ")
-    print("4. Report")
-    print("5. Exit")
-    choice = int(input("Enter Your Choice in Numbers: "))
-    match choice:
-        case 1:
-            drink = MENU["espresso"]
-        case 2:
-            drink = MENU["latte"]
-        case 3:
-            drink = MENU["cappuccino"]
-        case 4:
-            report(resources)
-            continue
-        case 5:
-            break
-    
-    if make_coffee(drink):
-        profit += drink['cost']
-
+# To run the coffee machine
+coffee_machine = CoffeeMachine()
+coffee_machine.run()
