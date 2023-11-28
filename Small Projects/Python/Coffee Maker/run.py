@@ -4,7 +4,6 @@ class Drink:
         self.ingredients = ingredients
         self.cost = cost
 
-
 class CoinProcessor:
     @staticmethod
     def process_coins():
@@ -20,7 +19,6 @@ class CoinProcessor:
         change = round(coins - drink_cost, 2)
         print(f"Here is your Coffee and your change is ${change}")
         return change
-
 
 class CoffeeMachine:
     def __init__(self):
@@ -53,7 +51,8 @@ class CoffeeMachine:
             else:
                 for ingredient, amount in drink.ingredients.items():
                     self.resources[ingredient] -= amount
-                self.profit += self.coin_processor.do_transaction(drink.cost, coins)
+                self.coin_processor.do_transaction(drink.cost, coins)
+                self.profit += drink.cost
                 return True
         else:
             print("Some ingredients are missing.")
@@ -83,7 +82,6 @@ class CoffeeMachine:
                     self.report()
                 case 5:
                     break
-
 
 # To run the coffee machine
 coffee_machine = CoffeeMachine()
